@@ -91,9 +91,6 @@ function getCookie(name) {
 }
 var file_uploaded = false;
 $(function () {
-
-
-
     //Resizing
     $('#avatar_pr,#info').css('position', 'fixed');
     $('#avatar_pr').css('left', '0');
