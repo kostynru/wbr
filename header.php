@@ -46,6 +46,8 @@ include_once 'db.php';
         <script src="/wbr/res/bootstrap/js/bootstrap.min.js"></script>
         <script src="/wbr/res/waypoints.min.js"></script>
 		<script src="/wbr/res/al_j.js"></script>
+	<script src="/wbr/moment.js"></script>
+	<script src="/wbr/livestamp.js"></script>
 		<!--Main  scripts-->
 	<?php if (($page == 'index' and $page <> 'register' and $page <> 'credits') and !isset($_GET['agreement'])) { ?>
 		<link href="/wbr/res/style-login.css" rel="stylesheet">
