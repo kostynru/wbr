@@ -1,0 +1,91 @@
+body {
+    height: 100%;
+}
+.msg_inline {
+    color: black;
+    padding: 5px;
+}
+
+.msg_inline:hover {
+    text-decoration: none;
+    color: lightslategrey;
+}
+
+.media {
+    height: 80px;
+    padding-top: 10px;
+}
+
+.media-object {
+    height: 100%;
+}
+.media:hover:not(.im_list) {
+    background-color: rgba(247, 247, 247, 0.5);
+    -webkit-transition: 0.5s;
+    -moz-transition: 0.5s;
+    -o-transition: 0.5s;
+    transition: 0.5s;
+}
+
+.media:not(:hover) {
+    background-color: #ffffff;
+    -webkit-transition: 0.2s;
+    -moz-transition: 0.2s;
+    -o-transition: 0.2s;
+    transition: 0.2s;
+}
+
+.external_msg {
+    background-color: rgba(247, 247, 247, 0.8);
+}
+
+.media-body {
+    height: 100%;
+}
+.dialog .media {
+    height: 100%;
+    padding-left: 4px;
+    padding-right: 4px;
+}
+.dialog .media-body {
+    width: 70%;
+    min-height: 100px;
+    height: 100%;
+}
+.media-text {
+    width: inherit;
+    word-wrap: break-word;
+}
+.msg_input {
+    padding: 5px;
+    padding-bottom: 20px;
+    height: 100%;
+}
+.input_area {
+    padding: 4px;
+    width: inherit;
+}
+#msg_input_text {
+ height: 35px;
+}
+.im_list:hover {
+    background-color: rgba(247, 247, 247, 0.5);
+    -webkit-transition: 0.5s;
+    -moz-transition: 0.5s;
+    -o-transition: 0.5s;
+    transition: 0.5s;
+}
+
+.im_list:not(:hover) {
+    background-color: #ffffff;
+    -webkit-transition: 0.2s;
+    -moz-transition: 0.2s;
+    -o-transition: 0.2s;
+    transition: 0.2s;
+}
+.dialog hr {
+    opacity: 0.3;
+}
+.col-md-8 .media:not(.dialog){
+    padding-left: 4px;
+}

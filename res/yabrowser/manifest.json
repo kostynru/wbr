@@ -1,0 +1,19 @@
+﻿{
+"version" : "1.0",
+"api_version" : 1,
+"layout": {
+"logo": "http://localhost/wbr/res/yabrowser/image.png",
+"color": "#ffffff",
+"show_title": false
+},
+"feed": {
+"url": "http://localhost/wbr/yabrowser.php",
+"format": "json",
+"notifiers": [
+{
+"name": "messages",
+"icon": "%MESSAGE%",
+"type": "int"
+}
+]
+}

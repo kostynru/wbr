@@ -1,0 +1,103 @@
+html, body {
+    height: 100%;
+    background-image: url('/wbr/res/skulls.png');
+}
+
+.wall_post {
+    padding: 5px;
+    height: 70px;
+    margin-bottom: 30px;
+}
+
+.wall_post:hover {
+    background-color: rgba(255, 255, 255, 0.70);
+    transition: 0.5s;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    border: 1px thick black;
+}
+
+#wall_content {
+    padding-top: 20px;
+}
+
+.wall_text {
+    padding-top: 30px;
+    position: absolute;
+}
+
+.wall_post_additional {
+    display: none;
+}
+
+#avatar_pr, #info {
+    height: 100%;
+}
+
+#img_input_msg {
+    display: none;
+    margin-top: 10px;
+    padding: 4px;
+    border: 3px dashed #b3b3b3;
+    height: 50px;
+    width: 100%;
+}
+
+#img_input_msg:hover {
+    cursor: pointer;
+}
+
+#dz-drag-hover {
+    cursor: none;
+    background-color: rgba(192, 192, 192, 0.1);
+}
+
+#profile_img {
+    padding-bottom: 5px;
+}
+
+#showAdditionalInfo {
+    border-bottom: 1px blue dashed;
+}
+
+#showAdditionalInfo:hover {
+    text-decoration: none;
+    border-bottom: 1px blue dashed;
+}
+
+#additionalInfo {
+    display: none;
+}
+
+#attachment {
+    padding-top: 4px;
+    display: none;
+    cursor: pointer;
+}
+
+#attachment:hover {
+    transition: 0.5s;
+    opacity: 0.5;
+}
+
+#img_rm {
+    position: absolute;
+}
+
+#avatar_pr img {
+    background-color: rgba(255, 255, 255, 0.7);
+    padding: 10px;
+}
+
+#scroll_up {
+    top: 0;
+    height: 4.5%;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.50);
+    position: fixed;
+}
+#scroll_up:hover {
+    transition: 0.2s;
+    background-color: rgba(255, 255, 255, 0.80);
+}

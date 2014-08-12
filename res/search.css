@@ -1,0 +1,9 @@
+﻿#opt_city {
+    width: 80%;
+}
+#search_add_opt {
+    display: none;
+}
+.srch-disabled {
+    opacity: 0.5;
+}

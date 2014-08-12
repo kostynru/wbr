@@ -1,0 +1,16 @@
+﻿AddDefaultCharset utf-8
+
+#
+
+RewriteEngine   on
+RewriteBase     /wbr/
+RewriteRule ^show/([a-zA-Z0-9]+)/?$ profile.php?show=$1 [QSA,L]
+#RewriteRule ^([a-zA-Z0-9]+).localhost/?$ profile.php?show=$1 [QSA,L]
+RewriteRule ^dialog/([0-9]+)/?$ im.php?show=$1 [QSA,L]
+
+
+RewriteCond %{HTTP_REFERER} !^$
+RewriteCond %{HTTP_REFERER} !^http://(www\.)?localhost/.*$ [NC]
+RewriteRule .+\.(gif|jpg|png|css|js)$ - [F]
+
+
