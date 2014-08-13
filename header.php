@@ -12,6 +12,24 @@ include_once 'db.php';
 			date_default_timezone_set(htmlspecialchars_decode($_COOKIE['j_timezone']));
 		}
 	}
+if($page == 'profile'){
+    if (isset($_GET['show']) and !empty($_GET['show']) and($_GET['show'] <> $_SESSION['id'])) {
+        $uid = intval($_GET['show']);
+        $query = "SELECT * FROM `profiles` JOIN `userdata` ON `profiles`.`id` = `userdata`.`uid` WHERE `profiles`.`id` =
+	{$uid}";
+        $result = mysqli_query($mysqli_link, $query);
+        if(!$result){
+            header('Location: /wbr/profile.php');
+        }
+        $profile = [];
+        while ($row = mysqli_fetch_assoc($result)) {
+            $profile = $row;
+        }
+        if(empty($profile)){
+            header('Location: /wbr/profile.php');
+        }
+    }
+}
 ?>
     <!DOCTYPE html>
     <head>
@@ -28,6 +46,11 @@ include_once 'db.php';
                     break;
                 case 'friends':
                     echo '| Friends';
+                    break;
+                case 'profile':
+                    if (isset($_GET['show']) and !empty($_GET['show']) and($_GET['show'] <> $_SESSION['id'])) {
+                        echo '| '.$profile['first_name'].' '.$profile['second_name'];
+                    }
                     break;
             }
             ?></title>
@@ -46,8 +69,8 @@ include_once 'db.php';
         <script src="/wbr/res/bootstrap/js/bootstrap.min.js"></script>
         <script src="/wbr/res/waypoints.min.js"></script>
 		<script src="/wbr/res/al_j.js"></script>
-	<script src="/wbr/moment.js"></script>
-	<script src="/wbr/livestamp.js"></script>
+	    <script src="/wbr/res/moment.js"></script>
+	    <script src="/wbr/res/livestamp.min.js"></script>
 		<!--Main  scripts-->
 	<?php if (($page == 'index' and $page <> 'register' and $page <> 'credits') and !isset($_GET['agreement'])) { ?>
 		<link href="/wbr/res/style-login.css" rel="stylesheet">

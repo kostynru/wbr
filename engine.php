@@ -344,11 +344,12 @@ if($_REQUEST['act'] == 'wall_load'){
     $result = mysqli_query($mysqli_link, $query);
     while($row = mysqli_fetch_assoc($result)){
         $msg = rawurldecode(base64_decode($row['content']));
-        $time = date('d.m.Y H:i', $row['time']);
+        $time = date('c', $row['time']);
+        $r_time = date('jS F o H:i', $row['time']);
         $wall = <<<WALL_POST
 <div class="wall_post" onmouseover="$('#additional{$row['id']}').show()" onmouseout="$('#additional{$row['id']}').hide()" id="{$row['id']}">
 <div class="wall_post_additional" id="additional{$row['id']}">
-<div class="pull-left help-block">{$time}</div>
+<div class="pull-left help-block"><time datetime="{$time}" data-livestamp="{$row['time']}" title="{$r_time}">{$r_time}</time></div>
 WALL_POST;
         if($owner){
            $wall .= <<<ADDIT

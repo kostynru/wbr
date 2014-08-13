@@ -91,6 +91,13 @@ function getCookie(name) {
 }
 var file_uploaded = false;
 $(function () {
+    //Time changing
+    $('.wall_post time').hover(function(e){
+        $(e.target).livestamp('destroy');
+    });
+    $('.wall_post time').mouseleave(function(e){
+        $(e.target).livestamp(new Date($(e.target).attr('datetime')));
+    });
     //Resizing
     $('#avatar_pr,#info').css('position', 'fixed');
     $('#avatar_pr').css('left', '0');
@@ -156,6 +163,7 @@ $(function () {
                         } else {
                             $('#wall_content').append(msg);
                         }
+                        $.livestamp.run();
                     }
                 });
         }
