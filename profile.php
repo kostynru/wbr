@@ -72,6 +72,11 @@ if (isset($_GET['show']) and !empty($_GET['show']) and($_GET['show'] <> $_SESSIO
                     $msg = rawurldecode(base64_decode($row['content']));
                     $time = date('c', $row['time']);
                     $r_time = date('jS F o H:i', $row['time']);
+	                if(!empty($row['img'])){
+		                $attachment = '<br><img src="/wbr/img_upl/'.$row['img'].'" class="post_attached_image img-rounded" id="img'.$row['id'].'">';
+	                } else {
+		                $attachment = '';
+	                }
                     echo <<<WALL_POST
 <div class="wall_post" onmouseover="$('#additional{$row['id']}').show()" onmouseout="$('#additional{$row['id']}').hide()" id="{$row['id']}">
 <div class="wall_post_additional" id="additional{$row['id']}">
@@ -79,6 +84,7 @@ if (isset($_GET['show']) and !empty($_GET['show']) and($_GET['show'] <> $_SESSIO
 </div>
 <div class="wall_text">
 {$msg}
+{$attachment}
 </div>
 </div>
 WALL_POST;
@@ -168,6 +174,11 @@ WALL_POST;
                 $msg = rawurldecode(base64_decode($row['content']));
                 $time = date('c', $row['time']);
                 $r_time = date('jS F o H:i', $row['time']);
+	            if(!empty($row['img'])){
+		            $attachment = '<br><img src="/wbr/img_upl/'.$row['img'].'" class="post_attached_image img-rounded" id="img'.$row['id'].'">';
+	            } else {
+		            $attachment = '';
+	            }
                 echo <<<WALL_POST
 <div class="wall_post" onmouseover="$('#additional{$row['id']}').show()" onmouseout="$('#additional{$row['id']}').hide()" id="{$row['id']}">
 <div class="wall_post_additional" id="additional{$row['id']}">
@@ -176,7 +187,9 @@ WALL_POST;
 </div>
 <div class="wall_text">
 {$msg}
+{$attachment}
 </div>
+
 </div>
 WALL_POST;
 

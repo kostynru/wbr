@@ -327,7 +327,10 @@ function wall_post(uid) {
                         $('#wall_content').html(msg);
                         $('#wall_msg').val('');
                         $('#wall_msg, #send_wall_post').removeAttr('disabled');
-                    })
+                        localStorage.removeItem('j_w_img');
+                        $('#attachment').html('');
+                    });
+
             }
         })
 }

@@ -5,17 +5,17 @@ html, body {
 
 .wall_post {
     padding: 5px;
-    height: 70px;
+    min-height: 70px;
     margin-bottom: 30px;
 }
 
 .wall_post:hover {
     background-color: rgba(255, 255, 255, 0.70);
     transition: 0.5s;
-    -webkit-border-radius: 2px;
-    -moz-border-radius: 2px;
-    border-radius: 2px;
-    border: 1px thick black;
+    /*  -webkit-border-radius: 2px;
+      -moz-border-radius: 2px;
+      border-radius: 2px;
+      border: 1px thick black;*/
 }
 
 #wall_content {
@@ -23,8 +23,9 @@ html, body {
 }
 
 .wall_text {
+    height: auto;
     padding-top: 30px;
-    position: absolute;
+    /*position: absolute;*/
 }
 
 .wall_post_additional {
@@ -97,7 +98,29 @@ html, body {
     background-color: rgba(255, 255, 255, 0.50);
     position: fixed;
 }
+
 #scroll_up:hover {
     transition: 0.2s;
     background-color: rgba(255, 255, 255, 0.80);
+}
+
+.post_attached_image {
+    margin-left: 7%;
+    margin-top: 2%;
+    max-height: 240px;
+    margin-bottom: 2%;
+    cursor: pointer;
+}
+
+.post_attached_image:hover {
+    -webkit-filter: brightness(95%);
+    -webkit-transition: 0.5s;
+    -moz-transition: 0.5s;
+    -ms-transition: 0.5s;
+    -o-transition: 0.5s;
+    transition: 0.5s;
+}
+
+.wall_post time {
+    position: absolute;
 }

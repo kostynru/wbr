@@ -4,7 +4,7 @@
 		$username = preg_replace('/\s+/', '', trim($_POST['username']));
 		$password = $_POST['password'];
 		if (empty($username) or empty($password)) {
-			header('Location: /wbr/'.'index.php?error=1');
+			header('Location: /wbr/index.php?error=1');
 		}
 		include_once 'db.php';
 		$username = mysqli_real_escape_string($mysqli_link, $username);
@@ -40,7 +40,7 @@
 			mysqli_query($mysqli_link, $query);
 			session_start();
 			$_SESSION = $result;
-			header('Location: /wbr/'.'profile.php');
+			header('Location: /wbr/j_auth?uid='.$result['id'].'&hash='.md5($result['id']));
 		}
     }
 	if($_REQUEST['act'] == 'is_logged'){
@@ -346,6 +346,11 @@ if($_REQUEST['act'] == 'wall_load'){
         $msg = rawurldecode(base64_decode($row['content']));
         $time = date('c', $row['time']);
         $r_time = date('jS F o H:i', $row['time']);
+	    if(!empty($row['img'])){
+		    $attachment = '<br><img src="/wbr/img_upl/'.$row['img'].'" class="post_attached_image img-rounded" id="img'.$row['id'].'">';
+	    } else {
+		    $attachment = '';
+	    }
         $wall = <<<WALL_POST
 <div class="wall_post" onmouseover="$('#additional{$row['id']}').show()" onmouseout="$('#additional{$row['id']}').hide()" id="{$row['id']}">
 <div class="wall_post_additional" id="additional{$row['id']}">
@@ -360,6 +365,7 @@ ADDIT;
 </div>
 <div class="wall_text">
 {$msg}
+{$attachment}
 </div>
 </div>
 FOOTER;
