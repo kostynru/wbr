@@ -90,12 +90,59 @@ function getCookie(name) {
     return(setStr);
 }
 var file_uploaded = false;
+function wall_like(pid, uid) {
+
+    $.ajax({
+        url: '/wbr/engine.php?act=wall_like',
+        method: 'POST',
+        data: {
+            post_id: pid,
+            user_id: uid
+        }
+    });
+}
+function wall_dislike(pid, uid) {
+    $.ajax({
+        url: '/wbr/engine.php?act=wall_dislike',
+        method: 'POST',
+        data: {
+            post_id: pid,
+            user_id: uid
+        }
+    });
+}
 $(function () {
+    $('.like .glyphicon').click(function (e) {
+        var uid = localStorage.getItem('uid');
+        var pid = $(e.target).parent().parent().attr('id');
+        var elem = $(e.target).parent();
+        var counter = $(e.target).siblings('.counter');
+        if ($(elem).hasClass('liked')) {
+            wall_dislike(pid, uid);
+            $(elem).removeClass('liked');
+            if (parseInt(counter.html()) == 1) {
+                $(counter).html('');
+            } else {
+                $(counter).html(' ' + (parseInt(counter.html()) - 1));
+            }
+        } else {
+            wall_like(pid, uid);
+            if ($(elem).hasClass('liked') == false) {
+                $(elem).addClass('liked');
+                if (counter.html() == '') {
+                    $(counter).html('1');
+                } else {
+                    $(counter).html(' ' + (parseInt(counter.html()) + 1));
+                }
+            }
+        }
+    });
+
     //Time changing
-    $('.wall_post time').hover(function(e){
+    $('.wall_post time').hover(function (e) {
         $(e.target).livestamp('destroy');
     });
-    $('.wall_post time').mouseleave(function(e){
+    $('.wall_post time').mouseleave(function (e) {
         $(e.target).livestamp(new Date($(e.target).attr('datetime')));
     });
     //Resizing

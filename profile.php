@@ -69,6 +69,18 @@ if (isset($_GET['show']) and !empty($_GET['show']) and($_GET['show'] <> $_SESSIO
             }
             if(!empty($wall_array)){
                 foreach($wall_array as $row){
+                    $likes_query = "SELECT * FROM `wall_likes` WHERE `uid` = {$_SESSION['id']} AND `pid` = {$row['id']}";
+                    $likes_result = mysqli_query($mysqli_link, $likes_query);
+                    if(mysqli_num_rows($likes_result) > 0){
+                        $likes = '<div class="like liked" id="like'.$row['id'].'"><span class="glyphicon glyphicon-heart"></span>';
+                    } else {
+                        $likes = '<div class="like" id="like'.$row['id'].'"><span class="glyphicon glyphicon-heart"></span>';
+                    }
+                    if($row['likes'] > 0){
+                        $likes .= ' <span class="counter">'.$row['likes'].'</span></div>';
+                    } else {
+                        $likes .= '<span class="counter"></span></div>';
+                    }
                     $msg = rawurldecode(base64_decode($row['content']));
                     $time = date('c', $row['time']);
                     $r_time = date('jS F o H:i', $row['time']);
@@ -86,6 +98,7 @@ if (isset($_GET['show']) and !empty($_GET['show']) and($_GET['show'] <> $_SESSIO
 {$msg}
 {$attachment}
 </div>
+{$likes}
 </div>
 WALL_POST;
 
@@ -171,6 +184,20 @@ WALL_POST;
             }
             if(!empty($wall_array)){
             foreach($wall_array as $row){
+                //
+                $likes_query = "SELECT * FROM `wall_likes` WHERE `uid` = {$_SESSION['id']} AND `pid` = {$row['id']}";
+                $likes_result = mysqli_query($mysqli_link, $likes_query);
+                if(mysqli_num_rows($likes_result) > 0){
+                    $likes = '<div class="like liked" id="like'.$row['id'].'"><span class="glyphicon glyphicon-heart"></span>';
+                } else {
+                    $likes = '<div class="like" id="like'.$row['id'].'"><span class="glyphicon glyphicon-heart"></span>';
+                }
+                if($row['likes'] > 0){
+                    $likes .= ' <span class="counter">'.$row['likes'].'</span></div>';
+                } else {
+                    $likes .= '<span class="counter"></span></div>';
+                }
+                //
                 $msg = rawurldecode(base64_decode($row['content']));
                 $time = date('c', $row['time']);
                 $r_time = date('jS F o H:i', $row['time']);
@@ -189,7 +216,7 @@ WALL_POST;
 {$msg}
 {$attachment}
 </div>
-
+{$likes}
 </div>
 WALL_POST;
 

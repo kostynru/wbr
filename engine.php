@@ -40,7 +40,7 @@
 			mysqli_query($mysqli_link, $query);
 			session_start();
 			$_SESSION = $result;
-			header('Location: /wbr/j_auth?uid='.$result['id'].'&hash='.md5($result['id']));
+			header('Location: /wbr/auth.php?uid='.$result['id'].'&hash='.md5($result['id']));
 		}
     }
 	if($_REQUEST['act'] == 'is_logged'){
@@ -330,7 +330,9 @@ if($_REQUEST['act'] == 'wall_delete'){
     include_once 'db.php';
     $pid = intval($_POST['post_id']);
     $query = "DELETE FROM `wall` WHERE `id` = {$pid}";
-    $result = mysqli_query($mysqli_link, $query);
+    $query1 = "DELETE FROM `wall_likes` WHERE `pid` = {$pid}";
+    mysqli_query($mysqli_link, $query);
+    mysqli_query($mysqli_link, $query1);
     echo '1';
 }
 // ASYNC. LOAD WALL DATA
@@ -343,6 +345,18 @@ if($_REQUEST['act'] == 'wall_load'){
     AS `b` ON `b`.`id` = `wall`.`id`";
     $result = mysqli_query($mysqli_link, $query);
     while($row = mysqli_fetch_assoc($result)){
+        $likes_query = "SELECT * FROM `wall_likes` WHERE `uid` = {$_SESSION['id']} AND `pid` = {$row['id']}";
+        $likes_result = mysqli_query($mysqli_link, $likes_query);
+        if(mysqli_num_rows($likes_result) > 0){
+            $likes = '<div class="like liked" id="like'.$row['id'].'"><span class="glyphicon glyphicon-heart"></span>';
+        } else {
+            $likes = '<div class="like" id="like'.$row['id'].'"><span class="glyphicon glyphicon-heart"></span>';
+        }
+        if($row['likes'] > 0){
+            $likes .= ' <span class="counter">'.$row['likes'].'</span></div>';
+        } else {
+            $likes .= '<span class="counter"></span></div>';
+        }
         $msg = rawurldecode(base64_decode($row['content']));
         $time = date('c', $row['time']);
         $r_time = date('jS F o H:i', $row['time']);
@@ -367,6 +381,7 @@ ADDIT;
 {$msg}
 {$attachment}
 </div>
+{$likes}
 </div>
 FOOTER;
 if(trim($wall) == ''){
@@ -377,7 +392,37 @@ if(trim($wall) == ''){
     }
 
 }
+//LIKE POST
+if($_REQUEST['act'] == 'wall_like'){
+    $uid = intval($_POST['user_id']);
+    $pid = intval($_POST['post_id']);
+    include_once 'db.php';
+    $query = "UPDATE `wall` SET `likes` = `likes`+1 WHERE `id` = {$pid}";
+    $query1 = "INSERT INTO `wall_likes` VALUES({$pid}, {$uid})";
+    $result = mysqli_query($mysqli_link, $query);
+    $result1 = mysqli_query($mysqli_link, $query1);
+    if(!$result or !$result1){
+        echo '0';
+    } else {
+        echo '1';
+    }
+}
 
+//DISLIKE POST
+if($_REQUEST['act'] == 'wall_dislike'){
+    $uid = intval($_POST['user_id']);
+    $pid = intval($_POST['post_id']);
+    include_once 'db.php';
+    $query = "UPDATE `wall` SET `likes` = `likes`-1 WHERE `id` = {$pid}";
+    $query1 = "DELETE FROM `wall_likes` WHERE `pid` = {$pid} AND `uid` = {$uid}";
+    $result = mysqli_query($mysqli_link, $query);
+    $result1 = mysqli_query($mysqli_link, $query1);
+    if(!$result or !$result1){
+        echo '0';
+    } else {
+        echo '1';
+    }
+}
 	/* //////////////////// ONLINE /////////////////////*/
 // ONLINE SYSTEM
 if($_REQUEST['act'] == 'user_online'){
