@@ -13,20 +13,6 @@ include_once 'header.php';
 <div id="profile">
 <?php
 if (isset($_GET['show']) and !empty($_GET['show']) and($_GET['show'] <> $_SESSION['id'])) {
-    $uid = intval($_GET['show']);
-    $query = "SELECT * FROM `profiles` JOIN `userdata` ON `profiles`.`id` = `userdata`.`uid` WHERE `profiles`.`id` =
-	{$uid}";
-    $result = mysqli_query($mysqli_link, $query);
-	if(!$result){
-		header('Location: /wbr/profile.php');
-	}
-    $profile = [];
-    while ($row = mysqli_fetch_assoc($result)) {
-        $profile = $row;
-    }
-	if(empty($profile)){
-		header('Location: /wbr/profile.php');
-	}
     $query = "SELECT * FROM `friends` WHERE `uid` = {$profile['id']} AND `fid` = {$_SESSION['id']}";
     $result = mysqli_query($mysqli_link, $query);
     $fr_status = [];
@@ -34,9 +20,6 @@ if (isset($_GET['show']) and !empty($_GET['show']) and($_GET['show'] <> $_SESSIO
         $fr_status = $row;
     }
     ?>
-	<script>
-		document.title = 'Jenott | <?php echo $profile['first_name'].' '.$profile['second_name'] ?>';
-	</script>
     <div class="col-md-3" id="avatar_pr">
         <img src="http://gravatar.com/avatar/<?php echo md5($profile['email']) ?>?d=mm&s=200" alt="<?php echo $profile['first_name'] ?>" id="profile_img"/>
 	    <br>
@@ -86,16 +69,36 @@ if (isset($_GET['show']) and !empty($_GET['show']) and($_GET['show'] <> $_SESSIO
             }
             if(!empty($wall_array)){
                 foreach($wall_array as $row){
+                    $likes_query = "SELECT * FROM `wall_likes` WHERE `uid` = {$_SESSION['id']} AND `pid` = {$row['id']}";
+                    $likes_result = mysqli_query($mysqli_link, $likes_query);
+                    if(mysqli_num_rows($likes_result) > 0){
+                        $likes = '<div class="like liked" id="like'.$row['id'].'"><span class="glyphicon glyphicon-heart"></span>';
+                    } else {
+                        $likes = '<div class="like" id="like'.$row['id'].'"><span class="glyphicon glyphicon-heart"></span>';
+                    }
+                    if($row['likes'] > 0){
+                        $likes .= ' <span class="counter">'.$row['likes'].'</span></div>';
+                    } else {
+                        $likes .= '<span class="counter"></span></div>';
+                    }
                     $msg = rawurldecode(base64_decode($row['content']));
-                    $time = date('d.m.Y H:i', $row['time']);
+                    $time = date('c', $row['time']);
+                    $r_time = date('jS F o H:i', $row['time']);
+	                if(!empty($row['img'])){
+		                $attachment = '<br><img src="/wbr/img_upl/'.$row['img'].'" class="post_attached_image img-rounded" id="img'.$row['id'].'">';
+	                } else {
+		                $attachment = '';
+	                }
                     echo <<<WALL_POST
 <div class="wall_post" onmouseover="$('#additional{$row['id']}').show()" onmouseout="$('#additional{$row['id']}').hide()" id="{$row['id']}">
 <div class="wall_post_additional" id="additional{$row['id']}">
-<div class="pull-left help-block">{$time}</div>
+<div class="pull-left help-block"><time datetime="{$time}" data-livestamp="{$row['time']}" title="{$r_time}">{$r_time}</time></div>
 </div>
 <div class="wall_text">
 {$msg}
+{$attachment}
 </div>
+{$likes}
 </div>
 WALL_POST;
 
@@ -181,17 +184,39 @@ WALL_POST;
             }
             if(!empty($wall_array)){
             foreach($wall_array as $row){
+                //
+                $likes_query = "SELECT * FROM `wall_likes` WHERE `uid` = {$_SESSION['id']} AND `pid` = {$row['id']}";
+                $likes_result = mysqli_query($mysqli_link, $likes_query);
+                if(mysqli_num_rows($likes_result) > 0){
+                    $likes = '<div class="like liked" id="like'.$row['id'].'"><span class="glyphicon glyphicon-heart"></span>';
+                } else {
+                    $likes = '<div class="like" id="like'.$row['id'].'"><span class="glyphicon glyphicon-heart"></span>';
+                }
+                if($row['likes'] > 0){
+                    $likes .= ' <span class="counter">'.$row['likes'].'</span></div>';
+                } else {
+                    $likes .= '<span class="counter"></span></div>';
+                }
+                //
                 $msg = rawurldecode(base64_decode($row['content']));
-                $time = date('d.m.Y H:i', $row['time']);
+                $time = date('c', $row['time']);
+                $r_time = date('jS F o H:i', $row['time']);
+	            if(!empty($row['img'])){
+		            $attachment = '<br><img src="/wbr/img_upl/'.$row['img'].'" class="post_attached_image img-rounded" id="img'.$row['id'].'">';
+	            } else {
+		            $attachment = '';
+	            }
                 echo <<<WALL_POST
 <div class="wall_post" onmouseover="$('#additional{$row['id']}').show()" onmouseout="$('#additional{$row['id']}').hide()" id="{$row['id']}">
 <div class="wall_post_additional" id="additional{$row['id']}">
-<div class="pull-left help-block">{$time}</div>
+<div class="pull-left help-block"><time datetime="{$time}" data-livestamp="{$row['time']}" title="{$r_time}">{$r_time}</time></div>
 <button type="button" class="close" id="wall_delete" onclick="wall_delete({$row['id']})"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
 </div>
 <div class="wall_text">
 {$msg}
+{$attachment}
 </div>
+{$likes}
 </div>
 WALL_POST;
 
@@ -240,3 +265,4 @@ WALL_POST;
 	ob_flush();
 ?>
 </div>
+<div class="image_taint" style="display: none"></div>
