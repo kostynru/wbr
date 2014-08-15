@@ -112,6 +112,21 @@ function wall_dislike(pid, uid) {
     });
 }
 $(function () {
+    $('.post_attached_image').click(function (e) {
+        var src = $(e.target).attr('src');
+        $('.image_taint').append('<img src="' + src + '" class="zoomed_attachment">');
+        $('.zoomed_attachment').css({
+            "padding-top": (($(window).height() - $(this).outerHeight())/2),
+            "padding-left": (($(window).width() - $(this).outerWidth())/2)
+        });
+        $('.image_taint').show();
+
+    });
+    $('.image_taint').click(function () {
+        $(this).hide();
+        $(this).html('');
+    });
+    //
     $('.like .glyphicon').click(function (e) {
         var uid = localStorage.getItem('uid');
         var pid = $(e.target).parent().parent().attr('id');

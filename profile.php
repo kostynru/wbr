@@ -265,3 +265,4 @@ WALL_POST;
 	ob_flush();
 ?>
 </div>
+<div class="image_taint" style="display: none"></div>

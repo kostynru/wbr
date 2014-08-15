@@ -1,2 +1,8 @@
-\.idea/
+*.ipr
+*.iml
+*.iws
+.idea/
+out/
+.idea_modules/
+atlassian-ide-plugin.xml
 img_upl/
