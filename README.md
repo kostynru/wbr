@@ -4,4 +4,4 @@ Jenott is the network that allowing you stay connected with your friends around 
 
 #
 
-Please, edit .htaccess file to fit it to your filesystem!
+_Please, edit .htaccess file to fit it to your filesystem!
