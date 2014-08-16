@@ -282,10 +282,3 @@ if ($page <> 'index' and $page <> 'register' and $page <> 'credits') {
 
 ?>
 <div class="container-fluid">
-<?php
-if ($page == 'settings') {
-    ?>
-    <a href="#profile_stg">Profile</a> | <a href="#im_stg">IM's</a>
-<?php
-}
-?>
