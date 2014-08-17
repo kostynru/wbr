@@ -13,10 +13,10 @@ include_once 'db.php';
 		}
 	}
 if($page == 'profile'){
-    if (isset($_GET['show']) and !empty($_GET['show']) and($_GET['show'] <> $_SESSION['id'])) {
-        $uid = intval($_GET['show']);
-        $query = "SELECT * FROM `profiles` JOIN `userdata` ON `profiles`.`id` = `userdata`.`uid` WHERE `profiles`.`id` =
-	{$uid}";
+    if (isset($_GET['show']) and !empty($_GET['show']) and($_GET['show'] <> $_SESSION['id'] and $_GET['show'] <> $_SESSION['username'])) {
+	    $uid = preg_replace('/\s+/', '', $_GET['show']);
+        $query = "SELECT * FROM `profiles` JOIN `userdata` ON `profiles`.`id` = `userdata`.`uid` WHERE (`profiles`.`id` =
+	'{$uid}' OR `profiles`.`username` = '{$uid}') LIMIT 1";
         $result = mysqli_query($mysqli_link, $query);
         if(!$result){
             header('Location: /wbr/profile.php');
@@ -48,7 +48,7 @@ if($page == 'profile'){
                     echo '| Friends';
                     break;
                 case 'profile':
-                    if (isset($_GET['show']) and !empty($_GET['show']) and($_GET['show'] <> $_SESSION['id'])) {
+                    if (isset($_GET['show']) and !empty($_GET['show']) and($_GET['show'] <> $_SESSION['id'] and $_GET['show'] <> $_SESSION['username'])) {
                         echo '| '.$profile['first_name'].' '.$profile['second_name'];
                     }
                     break;

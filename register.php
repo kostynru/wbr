@@ -20,7 +20,7 @@
 			<label for="password">Password</label>
 			<input type="password" id="password" class="form-control" name="password" placeholder="Password" required="" autocomplete="off" value="">
 		</div>
-		<div class="form-group "  id="re_passwordGroup">
+		<div class="form-group"  id="re_passwordGroup">
 			<label for="re_password">Repeat password</label>
 			<input type="password" id="re_password" class="form-control" placeholder="Just repeat your password"
 			       required="">

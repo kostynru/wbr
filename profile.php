@@ -12,7 +12,7 @@ include_once 'header.php';
 ?>
 <div id="profile">
 <?php
-if (isset($_GET['show']) and !empty($_GET['show']) and($_GET['show'] <> $_SESSION['id'])) {
+if (isset($_GET['show']) and !empty($_GET['show']) and($_GET['show'] <> $_SESSION['id'] and $_GET['show'] <> $_SESSION['username'])) {
     $query = "SELECT * FROM `friends` WHERE `uid` = {$profile['id']} AND `fid` = {$_SESSION['id']}";
     $result = mysqli_query($mysqli_link, $query);
     $fr_status = [];
