@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50614
 File Encoding         : 65001
 
-Date: 2014-08-11 18:34:40
+Date: 2014-08-17 13:54:55
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -76,7 +76,7 @@ CREATE TABLE `online` (
 -- Records of online
 -- ----------------------------
 INSERT INTO `online` VALUES ('0', '1407262838');
-INSERT INTO `online` VALUES ('1', '1407749108');
+INSERT INTO `online` VALUES ('1', '1408258391');
 INSERT INTO `online` VALUES ('2', '1407330696');
 INSERT INTO `online` VALUES ('3', '1407330696');
 INSERT INTO `online` VALUES ('19', '1407396427');
@@ -138,7 +138,7 @@ CREATE TABLE `sessions` (
 -- ----------------------------
 -- Records of sessions
 -- ----------------------------
-INSERT INTO `sessions` VALUES ('32402978426d25c7f870d456b8e4cb66', '1', '1410331218');
+INSERT INTO `sessions` VALUES ('32402978426d25c7f870d456b8e4cb66', '1', '1410849886');
 
 -- ----------------------------
 -- Table structure for `settings`
@@ -147,13 +147,15 @@ DROP TABLE IF EXISTS `settings`;
 CREATE TABLE `settings` (
   `uid` int(6) NOT NULL DEFAULT '0',
   `gravatar_id` varchar(32) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `wall_everybody` int(1) DEFAULT '1',
+  `messages_everybody` int(1) DEFAULT '1',
   PRIMARY KEY (`uid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- ----------------------------
 -- Records of settings
 -- ----------------------------
-INSERT INTO `settings` VALUES ('1', '9a79c90db4729b6a63ffcbd93b16374d');
+INSERT INTO `settings` VALUES ('1', '9a79c90db4729b6a63ffcbd93b16374d', '1', '1');
 
 -- ----------------------------
 -- Table structure for `userdata`
@@ -190,28 +192,33 @@ CREATE TABLE `wall` (
   `content` varchar(500) NOT NULL,
   `time` int(32) NOT NULL,
   `img` varchar(50) DEFAULT '',
+  `likes` int(5) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of wall
 -- ----------------------------
-INSERT INTO `wall` VALUES ('4', '1', 'SG0sIG5pY2Ugd29yaw==', '1404197344', null);
-INSERT INTO `wall` VALUES ('9', '3', 'SG0sIG5pY2Ugd29yaw==', '1404197344', null);
-INSERT INTO `wall` VALUES ('10', '1', 'TmljZSB3b3JrLCBtYXRlcw==', '1404314396', null);
-INSERT INTO `wall` VALUES ('11', '1', 'V2VsY29tZSE=', '1405237415', null);
-INSERT INTO `wall` VALUES ('12', '1', 'UHJlcGFyZSB5b3JzZWxmIF5e', '1405237433', null);
-INSERT INTO `wall` VALUES ('13', '1', 'TmljZSBXb3JrLCBtYXRl', '1405237458', null);
-INSERT INTO `wall` VALUES ('15', '1', 'JUQwJTlGJUQxJTgwJUQwJUI4JUQwJUIyJUQwJUI1JUQxJTgyJTIwJTVFJTVF', '1405238084', null);
-INSERT INTO `wall` VALUES ('16', '1', 'SG9sYSE=', '1405238407', null);
-INSERT INTO `wall` VALUES ('17', '1', 'SG9sYSE=', '1405238444', null);
-INSERT INTO `wall` VALUES ('18', '1', 'SG9sYSEh', '1405238534', null);
-INSERT INTO `wall` VALUES ('19', '1', 'UXVlJTIwdGFsJTNG', '1405238683', null);
-INSERT INTO `wall` VALUES ('20', '1', 'SVQlMjBXT1JLUyEh', '1405238728', null);
-INSERT INTO `wall` VALUES ('21', '1', 'SGlp', '1405246448', null);
-INSERT INTO `wall` VALUES ('22', '1', 'SGVsbG8lMkMlMjBteSUyMGZyaWVuZA==', '1405246536', null);
-INSERT INTO `wall` VALUES ('23', '1', 'SGV5JTIwaGV5', '1407065674', null);
-INSERT INTO `wall` VALUES ('24', '1', 'MTIz', '1407246230', null);
+INSERT INTO `wall` VALUES ('4', '1', 'SG0sIG5pY2Ugd29yaw==', '1404197344', null, '0');
+INSERT INTO `wall` VALUES ('9', '3', 'SG0sIG5pY2Ugd29yaw==', '1404197344', null, '1');
+INSERT INTO `wall` VALUES ('10', '1', 'TmljZSB3b3JrLCBtYXRlcw==', '1404314396', null, '0');
+INSERT INTO `wall` VALUES ('11', '1', 'V2VsY29tZSE=', '1405237415', null, '0');
+INSERT INTO `wall` VALUES ('12', '1', 'UHJlcGFyZSB5b3JzZWxmIF5e', '1405237433', null, '0');
+INSERT INTO `wall` VALUES ('13', '1', 'TmljZSBXb3JrLCBtYXRl', '1405237458', null, '0');
+INSERT INTO `wall` VALUES ('15', '1', 'JUQwJTlGJUQxJTgwJUQwJUI4JUQwJUIyJUQwJUI1JUQxJTgyJTIwJTVFJTVF', '1405238084', null, '0');
+INSERT INTO `wall` VALUES ('16', '1', 'SG9sYSE=', '1405238407', null, '0');
+INSERT INTO `wall` VALUES ('17', '1', 'SG9sYSE=', '1405238444', null, '0');
+INSERT INTO `wall` VALUES ('18', '1', 'SG9sYSEh', '1405238534', null, '0');
+INSERT INTO `wall` VALUES ('19', '1', 'UXVlJTIwdGFsJTNG', '1405238683', null, '0');
+INSERT INTO `wall` VALUES ('20', '1', 'SVQlMjBXT1JLUyEh', '1405238728', null, '0');
+INSERT INTO `wall` VALUES ('21', '1', 'SGlp', '1405246448', null, '0');
+INSERT INTO `wall` VALUES ('22', '1', 'SGVsbG8lMkMlMjBteSUyMGZyaWVuZA==', '1405246536', null, '0');
+INSERT INTO `wall` VALUES ('23', '1', 'SGV5JTIwaGV5', '1407065674', null, '0');
+INSERT INTO `wall` VALUES ('24', '1', 'MTIz', '1407246230', null, '0');
+INSERT INTO `wall` VALUES ('25', '1', 'aGVsbG8=', '1408025616', '', '0');
+INSERT INTO `wall` VALUES ('26', '1', 'aGVsbG8=', '1408025860', '46520fd270b082d1bfda25db82b087a3.jpg', '0');
+INSERT INTO `wall` VALUES ('28', '1', 'WW8=', '1408030144', '', '1');
+INSERT INTO `wall` VALUES ('29', '1', 'TmlnZ2E=', '1408030151', '', '1');
 
 -- ----------------------------
 -- Table structure for `wall_attch`
@@ -228,6 +235,22 @@ CREATE TABLE `wall_attch` (
 -- Records of wall_attch
 -- ----------------------------
 INSERT INTO `wall_attch` VALUES ('1', 'be5a106d20d0c6c2bb81156873705e3b.jpg', '0');
+
+-- ----------------------------
+-- Table structure for `wall_likes`
+-- ----------------------------
+DROP TABLE IF EXISTS `wall_likes`;
+CREATE TABLE `wall_likes` (
+  `pid` int(5) unsigned NOT NULL,
+  `uid` int(10) unsigned NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- ----------------------------
+-- Records of wall_likes
+-- ----------------------------
+INSERT INTO `wall_likes` VALUES ('9', '1');
+INSERT INTO `wall_likes` VALUES ('29', '1');
+INSERT INTO `wall_likes` VALUES ('28', '1');
 
 -- ----------------------------
 -- Table structure for `wall_preferences`
