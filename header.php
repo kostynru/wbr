@@ -265,7 +265,7 @@ if ($page <> 'index' and $page <> 'register' and $page <> 'credits') {
 			            ?>
 			            <form class="navbar-form navbar-right col-xs-3" role="search" action="/wbr/search.php" method="POST">
 				            <div class="form-group">
-					            <input type="text" class="form-control" name="search_str" placeholder="Search for users" role="search">
+					            <input type="text" class="form-control navbar-search" name="search_str" placeholder="Search for users" role="search">
 				            </div>
 				            <button type="submit" class="btn btn-default">Go!</button>
 			            </form>
