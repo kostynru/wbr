@@ -112,6 +112,10 @@ if($page == 'profile'){
 		    echo '<script src="/wbr/res/search.js"></script>';
 		    echo '<link href="/wbr/res/search.css" rel="stylesheet">';
 	    }
+	        if($page == 'settings'){
+		        echo '<script src="/wbr/res/settings.js"></script>';
+		        echo '<link href="/wbr/res/settings.css" rel="stylesheet">';
+	        }
         if($page <> 'index' and $page <> 'register' and $page <> 'credits'){
         ?>
 	    <link href="/wbr/res/j_style.css" rel="stylesheet">

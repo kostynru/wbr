@@ -20,9 +20,13 @@ if (isset($_GET['show']) and !empty($_GET['show']) and($_GET['show'] <> $_SESSIO
     while ($row = mysqli_fetch_assoc($result)) {
         $fr_status = $row;
     }
+	include_once 'res/getImageColor.php';
+	$img = new GeneratorImageColorPalette();
+	$color = $img->getImageColor('http://gravatar.com/avatar/'.md5($profile['email']).'d=mm&s=100', '1');
+	$color = array_flip($color)[2];
     ?>
     <div class="col-md-3" id="avatar_pr">
-        <img src="http://gravatar.com/avatar/<?php echo md5($profile['email']) ?>?d=mm&s=200" alt="<?php echo $profile['first_name'] ?>" id="profile_img"/>
+        <img src="http://gravatar.com/avatar/<?php echo md5($profile['email']) ?>?d=mm&s=200" alt="<?php echo $profile['first_name'] ?>" id="profile_img" />
 	    <br>
 	    <?php
 		    $friends_query = "SELECT * FROM `friends` WHERE `uid` = {$profile['id']} AND `approved` = 1";
@@ -153,7 +157,11 @@ WALL_POST;
     while ($row = mysqli_fetch_assoc($result)) {
         $profile = $row;
     }
-    ?>
+	include_once 'res/getImageColor.php';
+	$img = new GeneratorImageColorPalette();
+	$color = $img->getImageColor('http://gravatar.com/avatar/'.md5($profile['email']).'d=mm&s=100', '1');
+	$color = array_flip($color)[2];
+	?>
 
     <!-- AVATAR !-->
     <div class="col-md-3" id="avatar_pr">

@@ -73,7 +73,7 @@ $gravatar_id = md5($settings['email']);
     <div class="tab-content">
         <br>
         <!-- Personal settings -->
-        <div class="tab-pane active" id="st_personal">
+        <form class="tab-pane active" id="st_personal">
             <div id="avatar_group">
                 <img src="http://gravatar.com/avatar/<?php echo $gravatar_id ?>?d=mm&s=200">
                 We have linked your Gravatar with <?php echo $settings['email'] ?>
@@ -105,18 +105,18 @@ $gravatar_id = md5($settings['email']);
             </div>
             <div class="form-group" id="username_group">
                 <label for="username">Username</label>
-                <input type="text" id="username" class="form-control setting" pattern="[A-Za-z0-9]" name="username" value="<?php echo $settings['username'] ?>">
+                <input type="text" id="username" class="form-control setting" name="username" value="<?php echo $settings['username'] ?>" pattern="/[a-zA-Z0-9]{3,20}/">
                 <span class="text-muted">*Your page might be found by this username at (http://jenott.net/show/{username}).
                 It must contain only latin characters and numbers without spaces. Also, the length must have more than four characters.</span>
             </div>
             <hr>
             <button class="btn btn-info" id="personal_st_save">Save</button>
-        </div>
+        </form>
 
         <!-- Wall settings -->
         <br>
 
-        <div class="tab-pane" id="st_wall">
+        <form class="tab-pane" id="st_wall">
             <div class="checkbox">
                 <label>
                     <input type="checkbox" class="setting" id="wall_everybody" <?php echo ($settings['wall_everybody'] == '1')? 'checked' : '' ?>> Everybody can see my wall (if not - only friends)
@@ -125,10 +125,10 @@ $gravatar_id = md5($settings['email']);
             <hr>
             <button class="btn btn-info" id="wall_st_save">Save</button>
 
-        </div>
+        </form>
 
         <!-- Privacy settings -->
-        <div class="tab-pane" id="st_privacy">
+        <form class="tab-pane" id="st_privacy">
             <div class="checkbox">
                 <label>
                     <input type="checkbox" class="setting" id="messages_everybody" <?php echo ($settings['messages_everybody'] == '1')? 'checked' : '' ?>> Only friends can send me messages
@@ -136,16 +136,16 @@ $gravatar_id = md5($settings['email']);
             </div>
             <hr>
             <button class="btn btn-info" id="privacy_st_save">Save</button>
-        </div>
+        </form>
 
         <!-- Additional settings -->
-        <div class="tab-pane" id="st_additional">
+        <form class="tab-pane" id="st_additional">
             <div class="page_background">
 
             </div>
             <hr>
             <button class="btn btn-info" id="additional_st_save">Save</button>
-        </div>
+        </form>
     </div>
 </div>
 <div class="col-md-2"></div>

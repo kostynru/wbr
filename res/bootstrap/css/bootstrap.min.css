@@ -3849,7 +3849,7 @@ textarea.input-group-sm > .form-control, textarea.input-group-sm > .input-group-
 
 .nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li.active > a:focus {
     color: #fff;
-    background-color: #428bca
+    background-color: #B3ACEF
 }
 
 .nav-stacked > li {
@@ -4268,7 +4268,7 @@ textarea.input-group-sm > .form-control, textarea.input-group-sm > .input-group-
 }
 
 .navbar-default {
-    background-color: #f8f8f8;
+    background-color: rgba(107, 226, 172, 0.5);
     border-color: #e7e7e7
 }
 
