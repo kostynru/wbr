@@ -110,7 +110,7 @@ $gravatar_id = md5($settings['email']);
                 It must contain only latin characters and numbers without spaces. Also, the length must have more than four characters.</span>
             </div>
             <hr>
-            <button class="btn btn-info" id="personal_st_save">Save</button>
+            <button class="btn btn-info" type="submit" id="personal_st_save">Save</button>
         </form>
 
         <!-- Wall settings -->
@@ -123,7 +123,7 @@ $gravatar_id = md5($settings['email']);
                 </label>
             </div>
             <hr>
-            <button class="btn btn-info" id="wall_st_save">Save</button>
+            <button class="btn btn-info" type="submit" id="wall_st_save">Save</button>
 
         </form>
 
@@ -135,7 +135,7 @@ $gravatar_id = md5($settings['email']);
                 </label>
             </div>
             <hr>
-            <button class="btn btn-info" id="privacy_st_save">Save</button>
+            <button class="btn btn-info" type="submit" id="privacy_st_save">Save</button>
         </form>
 
         <!-- Additional settings -->
@@ -144,8 +144,9 @@ $gravatar_id = md5($settings['email']);
 
             </div>
             <hr>
-            <button class="btn btn-info" id="additional_st_save">Save</button>
+            <button class="btn btn-info" type="submit" id="additional_st_save">Save</button>
         </form>
     </div>
 </div>
 <div class="col-md-2"></div>
+<input type="hidden" id="uid" value="<?php echo $settings['id'] ?>"

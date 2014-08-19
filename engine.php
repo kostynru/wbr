@@ -588,6 +588,44 @@ LETTER;
 			header('Location: /wbr/index.php?success=2');
 		}
 	}
+	/////////////////// SETTINGS ///////////////////////
+	// Save
+	if($_REQUEST['act'] == 'settings_save'){
+		$settings = $_POST;
+		$uid = intval($settings['user_id']);
+		unset($settings['user_id']);
+		/*
+Personal settings:
+[username] - profiles
+[password] - profiles
+[first_name] - profiles
+[second_name] - profiles
+[email] - profiles
+[about] - profiles
+[timezone] - profiles
+[birth] - userdata
+[city] - userdata
+[skype] - userdata
+[twitter] - uerdata
+
+Wall settings:
+[wall_everybody] - settings
+
+Messages settings:
+[messages_everybody] - settings
+		 */
+		include_once 'db.php';
+		$wall_everybody = (($settings['wall_everybody']) == 'on')? '1' : '0';
+		$messages_everybody = (($settings['messages_everybody']) == 'on')? '1' : '0';
+		$query = "UPDATE `profiles`,`userdata`,`settings` SET `profiles`.`username` = '{$settings['username']}', '`profiles`.`first_name`' = '{$settings['first_name']}',
+		`profiles`.`second_name` = '{$settings['second_name']}', `profiles`.`email` = '{$settings['email']}', `profiles`.`about` = '{$settings['about']}',
+		`profiles`.`timezone` = '{$settings['timezone']}', `userdata`.`birth` = '{$settings['birth']}', `userdata`.`city` = '{$settings['city']}',
+		`userdata`.`skype` = '{$settings['skype']}', `userdata`.`twitter` = '{$settings['twitter']}', `settings`.`wall_everybody` = '{$wall_everybody}',
+		`settings`.`messages_everybody` = '{$messages_everybody}' WHERE `profiles`.`id` = {$uid} AND `userdata`.`uid` = {$uid} AND `settings`.`uid` = {$uid}";
+	}
+
+
+
 
 	//
 

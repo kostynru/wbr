@@ -1,56 +1,7 @@
-﻿var current_settings = {
-    first_name: '',
-    second_name: '',
-    //password: '',
-    //about: '',
-    //timezone: '',
-    wall_everybody: '',
-    messages_everybody: '',
-    birth: '',
-    //city: '',
-    skype: '',
-    twitter: ''
-};
+﻿var current_settings = {};
 $(function () {
     $('.setting').each(function (value) {
-        switch ($(value).attr('id')) {
-            case 'first_name':
-                current_settings.first_name = value;
-                break;
-            case 'second_name':
-                current_settings.second_name = value;
-                break;
-            /*case 'password':
-             current_settings.password = value;
-             break;
-             case 'about':
-             current_settings.about = value;
-             break;
-             case 'timezone':
-             current_settings.timezone = value;
-             break;
-             */
-            case 'wall_everybody':
-                current_settings.wall_everybody = value;
-                break;
-            case 'messages_everybody':
-                current_settings.messages_everybody = value;
-                break;
-            case 'birth':
-                current_settings.birth = value;
-                break;
-            /*
-             case 'city':
-             current_settings.city = value;
-             break;
-             */
-            case 'skype':
-                current_settings.skype = value;
-                break;
-            case 'twitter':
-                current_settings.twitter = value;
-                break;
-        }
+        current_settings[$(this).attr('id')] = $(this).val();
     });
     $('#st_additional').trackChanges();
     $('#st_personal').trackChanges();
@@ -58,26 +9,99 @@ $(function () {
     $('#st_wall').trackChanges();
 
     $('#st_personal').submit(function () {
-        if($('#st_personal').isChanged()){
-            display_notification('Hola!');
+        if ($('#st_personal').isChanged()) {
+            var changes = {};
+            var submit = {};
+            $('#st_personal .setting').each(function (current) {
+                changes[$(this).attr('id')] = $(this).val();
+            });
+            submit['user_id'] = $('#uid').val();
+            $.each(changes, function (index, value) {
+                if (value != current_settings[index]) {
+                    submit[index] = value;
+                }
+            });
+            submit['user_id'] = $('#uid').val();
+            $.ajax({
+                url: '/wbr/engine.php?act=settings_save',
+                data: submit,
+                method: 'POST',
+                success: function (result) {
+
+                }
+            });
         }
         return false;
     });
     $('#st_wall').submit(function () {
-        if($('#st_wall').isChanged()){
+        if ($('#st_wall').isChanged()) {
+            var changes = {};
+            var submit = {};
+            $('#st_wall .setting').each(function (current) {
+                changes[$(this).attr('id')] = $(this).val();
+            });
+            $.each(changes, function (index, value) {
+                if (value != current_settings[index]) {
+                    submit[index] = value;
+                }
+            });
+            submit['user_id'] = $('#uid').val();
+            $.ajax({
+                url: '/wbr/engine.php?act=settings_save',
+                data: submit,
+                method: 'POST',
+                success: function (result) {
 
+                }
+            });
         }
         return false;
     });
     $('#st_privacy').submit(function () {
-        if($('#st_privacy')){
+        if ($('#st_privacy').isChanged()) {
+            var changes = {};
+            var submit = {};
+            $('#st_privacy .setting').each(function (current) {
+                changes[$(this).attr('id')] = $(this).val();
+            });
+            $.each(changes, function (index, value) {
+                if (value != current_settings[index]) {
+                    submit[index] = value;
+                }
+            });
+            submit['user_id'] = $('#uid').val();
+            $.ajax({
+                url: '/wbr/engine.php?act=settings_save',
+                data: submit,
+                method: 'POST',
+                success: function (result) {
 
+                }
+            });
         }
         return false;
     });
     $('#st_additional').submit(function () {
-        if($('#st_additional')){
+        if ($('#st_additional').isChanged()) {
+            var changes = {};
+            var submit = {};
+            $('#st_additional .setting').each(function (current) {
+                changes[$(this).attr('id')] = $(this).val();
+            });
+            $.each(changes, function (index, value) {
+                if (value != current_settings[index]) {
+                    submit[index] = value;
+                }
+            });
+            submit['user_id'] = $('#uid').val();
+                $.ajax({
+                url: '/wbr/engine.php?act=settings_save',
+                data: submit,
+                method: 'POST',
+                success: function (result) {
 
+                }
+            });
         }
         return false;
     });
