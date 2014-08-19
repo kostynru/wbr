@@ -28,14 +28,23 @@ function sound_notification(type) {
         $('audio').remove();
     });
 }
+
+function display_notification(message) {
+    var message = '<div style="opacity: 1">' + message + '</div>';
+    var html = '<div class="modal-info" style="border-radius: 2px; min-width:10%; height: auto; padding: 15px; position: fixed; background-color: rgb(192, 192, 192); top: 4px; left: 4px; opacity: 0.9">' + message + '</div>';
+    $('html').append(html);
+    setTimeout(function () {
+        $('.modal-info').hide(600).remove();
+    }, 3000);
+}
+
 $.fn.extend({
-    trackChanges: function() {
-        $(":input",this).change(function() {
+    trackChanges: function () {
+        $(":input", this).change(function () {
             $(this.form).data("changed", true);
         });
-    }
-    ,
-    isChanged: function() {
+    },
+    isChanged: function () {
         return this.data("changed");
     }
 });

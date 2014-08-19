@@ -57,25 +57,28 @@ $(function () {
     $('#st_privacy').trackChanges();
     $('#st_wall').trackChanges();
 
-    $('#st_additional').submit(function () {
+    $('#st_personal').submit(function () {
         if($('#st_personal').isChanged()){
-            console.log('Hola!');
+            display_notification('Hola!');
         }
         return false;
     });
-    $('#wall_st_save').click(function () {
+    $('#st_wall').submit(function () {
         if($('#st_wall').isChanged()){
 
         }
+        return false;
     });
-    $('#privacy_st_save').click(function () {
+    $('#st_privacy').submit(function () {
         if($('#st_privacy')){
 
         }
+        return false;
     });
-    $('#additional_st_save').click(function () {
+    $('#st_additional').submit(function () {
         if($('#st_additional')){
 
         }
+        return false;
     });
 });

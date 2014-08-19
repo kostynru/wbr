@@ -105,7 +105,7 @@ $gravatar_id = md5($settings['email']);
             </div>
             <div class="form-group" id="username_group">
                 <label for="username">Username</label>
-                <input type="text" id="username" class="form-control setting" name="username" value="<?php echo $settings['username'] ?>" pattern="/[a-zA-Z0-9]{3,20}/">
+                <input type="text" id="username" class="form-control setting" name="username" value="<?php echo $settings['username'] ?>" pattern="[a-zA-Z0-9]{3,20}">
                 <span class="text-muted">*Your page might be found by this username at (http://jenott.net/show/{username}).
                 It must contain only latin characters and numbers without spaces. Also, the length must have more than four characters.</span>
             </div>
