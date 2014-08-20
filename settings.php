@@ -101,7 +101,7 @@ $gravatar_id = md5($settings['email']);
             </div>
             <div class="form-group" id="birthday_group">
                 <label for="birthday">Birthday</label>
-                <input type="date" id="birthday" class="form-control setting" value="<?php echo date('Y-m-d', $settings['birth']) ?>">
+                <input type="date" id="birthday" name="birth" class="form-control setting" value="<?php echo date('Y-m-d', $settings['birth']) ?>">
             </div>
             <div class="form-group" id="username_group">
                 <label for="username">Username</label>

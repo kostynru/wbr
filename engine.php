@@ -618,6 +618,10 @@ Messages settings:
 		$userdata = ['birth', 'city', 'skype', 'twitter'];
 		$db_settings = ['wall_everybody', 'messages_everybody'];
 		include_once 'db.php';
+		if(isset($settings['birthday']) and !empty($settings['birthday'])){
+			$settings['birth'] = strtotime($settings['birthday']);
+			unset($settings['birthday']);
+		}
 		$wall_everybody = (($settings['wall_everybody']) == 'on')? '1' : '0';
 		$messages_everybody = (($settings['messages_everybody']) == 'on')? '1' : '0';
 		$query = 'UPDATE ';
