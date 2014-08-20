@@ -26,8 +26,13 @@ $(function () {
                 url: '/wbr/engine.php?act=settings_save',
                 data: submit,
                 method: 'POST',
+                beforeSend: function(){
+                    $('#personal_st_save').attr('disabled', 'disabled');
+                    $('.success').remove();
+                },
                 success: function (result) {
-
+                    $('#personal_st_save').removeAttr('disabled');
+                    $('#personal_st_save').after(' <span class="success">Saved successful!</span>');
                 }
             });
         }
@@ -50,8 +55,13 @@ $(function () {
                 url: '/wbr/engine.php?act=settings_save',
                 data: submit,
                 method: 'POST',
+                beforeSend: function(){
+                    $('#wall_st_save').attr('disabled', 'disabled');
+                    $('.success').remove();
+                },
                 success: function (result) {
-
+                    $('#wall_st_save').removeAttr('disabled');
+                    $('#wall_st_save').after(' <span class="success">Saved successful!</span>');
                 }
             });
         }
@@ -74,8 +84,13 @@ $(function () {
                 url: '/wbr/engine.php?act=settings_save',
                 data: submit,
                 method: 'POST',
+                beforeSend: function(){
+                  $('#privacy_st_save').attr('disabled', 'disabled');
+                    $('.success').remove();
+                },
                 success: function (result) {
-
+                    $('#privacy_st_save').removeAttr('disabled');
+                    $('#privacy_st_save').after(' <span class="success">Saved successful!</span>');
                 }
             });
         }
@@ -98,9 +113,14 @@ $(function () {
                 url: '/wbr/engine.php?act=settings_save',
                 data: submit,
                 method: 'POST',
-                success: function (result) {
-
-                }
+                    beforeSend: function(){
+                        $('#additional_st_save').attr('disabled', 'disabled');
+                        $('.success').remove();
+                    },
+                    success: function (result) {
+                        $('#additional_st_save').removeAttr('disabled');
+                        $('#additional_st_save').after(' <span class="success">Saved successful!</span>');
+                    }
             });
         }
         return false;
