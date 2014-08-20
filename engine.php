@@ -614,14 +614,48 @@ Wall settings:
 Messages settings:
 [messages_everybody] - settings
 		 */
+		$profiles = ['username', 'password', 'first_name', 'second_name', 'email', 'about', 'timezone'];
+		$userdata = ['birth', 'city', 'skype', 'twitter'];
+		$db_settings = ['wall_everybody', 'messages_everybody'];
 		include_once 'db.php';
 		$wall_everybody = (($settings['wall_everybody']) == 'on')? '1' : '0';
 		$messages_everybody = (($settings['messages_everybody']) == 'on')? '1' : '0';
-		$query = "UPDATE `profiles`,`userdata`,`settings` SET `profiles`.`username` = '{$settings['username']}', '`profiles`.`first_name`' = '{$settings['first_name']}',
-		`profiles`.`second_name` = '{$settings['second_name']}', `profiles`.`email` = '{$settings['email']}', `profiles`.`about` = '{$settings['about']}',
-		`profiles`.`timezone` = '{$settings['timezone']}', `userdata`.`birth` = '{$settings['birth']}', `userdata`.`city` = '{$settings['city']}',
-		`userdata`.`skype` = '{$settings['skype']}', `userdata`.`twitter` = '{$settings['twitter']}', `settings`.`wall_everybody` = '{$wall_everybody}',
-		`settings`.`messages_everybody` = '{$messages_everybody}' WHERE `profiles`.`id` = {$uid} AND `userdata`.`uid` = {$uid} AND `settings`.`uid` = {$uid}";
+		$query = 'UPDATE ';
+		$fields = [];
+		foreach($settings as $key => $value){
+			if(in_array($key, $profiles)){
+				$fields['profiles'][$key] = $value;
+			} elseif(in_array($key, $userdata)){
+				$fields['userdata'][$key] = $value;
+			} elseif(in_array($key, $db_settings)){
+				$fields['settings'][$key] = $value;
+			}
+		}
+		foreach($fields as $key => $value){
+			$query .= "`{$key}`,";
+		}
+		$query = rtrim($query, ",");
+		$query .= ' SET ';
+		foreach($fields as $key => $value){
+			$current_table = $key;
+			foreach($value as $key => $value){
+				$query .= "`{$current_table}`.`{$key}` = '{$value}',";
+			}
+		}
+		$query = rtrim($query, ",");
+		$query .= " WHERE ";
+		foreach($fields as $key => $value){
+			if($key == 'profiles'){
+				$query .= "`{$key}`.`id` = {$uid} AND ";
+			} elseif($key == 'userdata'){
+				$query .= "`{$key}`.`uid` = {$uid} AND ";
+			} elseif($key == 'settings'){
+				$query .= "`{$key}`.`uid` = {$uid} AND ";
+			}
+		}
+		$query .= "`profiles`.`id` != 0";
+		$result = mysqli_query($mysqli_link, $query) or die(mysql_error($mysqli_link));
+		echo ($result) ? '1' : '0';
 	}
 
 

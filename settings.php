@@ -149,4 +149,4 @@ $gravatar_id = md5($settings['email']);
     </div>
 </div>
 <div class="col-md-2"></div>
-<input type="hidden" id="uid" value="<?php echo $settings['id'] ?>"
+<input type="hidden" id="uid" value="<?php echo $settings['id'] ?>">

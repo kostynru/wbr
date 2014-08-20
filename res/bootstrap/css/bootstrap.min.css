@@ -4270,6 +4270,11 @@ textarea.input-group-sm > .form-control, textarea.input-group-sm > .input-group-
 .navbar-default {
     background-color: rgba(107, 226, 172, 0.5);
     border-color: #e7e7e7
+    transition: 0.5s;
+}
+.navbar-default:hover {
+    background-color: rgba(107, 226, 172, 0.9);
+    transition: 0.5s;
 }
 
 .navbar-default .navbar-brand {
