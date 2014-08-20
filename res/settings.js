@@ -31,6 +31,9 @@ $(function () {
                     $('.success').remove();
                 },
                 success: function (result) {
+                    $('.setting').each(function (value) {
+                        current_settings[$(this).attr('id')] = $(this).val();
+                    });
                     $('#personal_st_save').removeAttr('disabled');
                     $('#personal_st_save').after(' <span class="success">Saved successful!</span>');
                 }
@@ -60,6 +63,9 @@ $(function () {
                     $('.success').remove();
                 },
                 success: function (result) {
+                    $('.setting').each(function (value) {
+                        current_settings[$(this).attr('id')] = $(this).val();
+                    });
                     $('#wall_st_save').removeAttr('disabled');
                     $('#wall_st_save').after(' <span class="success">Saved successful!</span>');
                 }
@@ -89,6 +95,9 @@ $(function () {
                     $('.success').remove();
                 },
                 success: function (result) {
+                    $('.setting').each(function (value) {
+                        current_settings[$(this).attr('id')] = $(this).val();
+                    });
                     $('#privacy_st_save').removeAttr('disabled');
                     $('#privacy_st_save').after(' <span class="success">Saved successful!</span>');
                 }
@@ -118,6 +127,9 @@ $(function () {
                         $('.success').remove();
                     },
                     success: function (result) {
+                        $('.setting').each(function (value) {
+                            current_settings[$(this).attr('id')] = $(this).val();
+                        });
                         $('#additional_st_save').removeAttr('disabled');
                         $('#additional_st_save').after(' <span class="success">Saved successful!</span>');
                     }
