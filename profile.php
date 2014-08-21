@@ -58,20 +58,28 @@ if (isset($_GET['show']) and !empty($_GET['show']) and($_GET['show'] <> $_SESSIO
         <input type="hidden" id="user_id" value="<?php echo $profile['id'] ?>" />
         <div id="wall_content">
             <?php
-            $wall_pref_q = "SELECT * FROM `wall_preferences` WHERE `uid` = {$profile['id']}";
+            $wall_pref_q = "SELECT * FROM `settings` WHERE `uid` = {$profile['id']}";
             $wall_pref_r = mysqli_query($mysqli_link, $wall_pref_q);
             $wall_preferences = [];
             while($row = mysqli_fetch_assoc($wall_pref_r)){
                 $wall_preferences = $row;
             }
-            if($wall_preferences['enabled'] == '1'){
-
+            if($wall_preferences['wall_everybody'] == '1'){
+                $show_wall = true;
+            } else {
+                if($friend){
+                    $show_wall = true;
+                } else {
+                    $show_wall = false;
+                }
+            }
+            if($wall_preferences['wall_enabled'] == '1' and $show_wall){
                 $wall_query = "SELECT * FROM `wall` WHERE `uid` = {$profile['id']} ORDER BY `time` DESC LIMIT 30";
                 $wall_result = mysqli_query($mysqli_link, $wall_query);
                 $wall_array = [];
-            while($row = mysqli_fetch_assoc($wall_result)){
-                $wall_array[] = $row;
-            }
+                while($row = mysqli_fetch_assoc($wall_result)){
+                    $wall_array[] = $row;
+                }
             if(!empty($wall_array)){
                 foreach($wall_array as $row){
                     $likes_query = "SELECT * FROM `wall_likes` WHERE `uid` = {$_SESSION['id']} AND `pid` = {$row['id']}";

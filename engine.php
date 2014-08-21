@@ -576,13 +576,14 @@ LETTER;
 		//CREATE NEW USER IN USERDATA
 		$id_query = "SELECT `id` FROM `profiles` WHERE `email` = '{$email}' LIMIT 1";
 		include_once 'db.php';
-		$result = mysqli_query($mysqli_link, $query) or die(mysqli_error($mysqli_link));
-		$id_res = mysqli_query($mysqli_link, $id_query) or die(mysqli_error($mysqli_link));
+		$result = mysqli_query($mysqli_link, $query);
+		$id_res = mysqli_query($mysqli_link, $id_query);
 		$id = mysqli_fetch_array($id_res);
 		$userdata_query = "INSERT INTO `userdata`(`uid`, `birth`, `gender`) VALUES('{$id[0]}', '{$birth}', '{$gender}')";
-
-		$userdata_result = mysqli_query($mysqli_link, $userdata_query) or die(mysqli_error($mysqli_link));
-		if(!$result or !$userdata_result){
+        $settings_query = "INSERT INTO `settings`(`uid`) VALUES('{$id[0]}')";
+        $settings_result = mysqli_query($mysqli_link, $settings_query);
+        $userdata_result = mysqli_query($mysqli_link, $userdata_query);
+		if(!$result or !$userdata_result or !$settings_result){
 			header('Location: /wbr/index.php?error=');
 		} else {
 			header('Location: /wbr/index.php?success=2');
@@ -610,20 +611,23 @@ Personal settings:
 
 Wall settings:
 [wall_everybody] - settings
+[wall_enabled] - settings
 
 Messages settings:
 [messages_everybody] - settings
 		 */
 		$profiles = ['username', 'password', 'first_name', 'second_name', 'email', 'about', 'timezone'];
 		$userdata = ['birth', 'city', 'skype', 'twitter'];
-		$db_settings = ['wall_everybody', 'messages_everybody'];
+		$db_settings = ['wall_everybody', 'messages_everybody', 'wall_enabled'];
 		include_once 'db.php';
 		if(isset($settings['birthday']) and !empty($settings['birthday'])){
 			$settings['birth'] = strtotime($settings['birthday']);
 			unset($settings['birthday']);
 		}
-		$wall_everybody = (($settings['wall_everybody']) == 'on')? '1' : '0';
-		$messages_everybody = (($settings['messages_everybody']) == 'on')? '1' : '0';
+
+        $settings['wall_everybody'] = (($settings['wall_everybody']) == 'checked' and isset($settings['wall_everybody']))? '1' : '0';
+        $settings['messages_everybody'] = (($settings['messages_everybody'] and isset($settings['messages_everybody'])) == 'checked')? '0' : '1';
+        $settings['wall_enabled'] = (($settings['wall_enabled'] == 'checked' and isset($settings['wall_enabled'])) == 'checked')? '1' : '0';
 		$query = 'UPDATE ';
 		$fields = [];
 		foreach($settings as $key => $value){
@@ -657,8 +661,8 @@ Messages settings:
 				$query .= "`{$key}`.`uid` = {$uid} AND ";
 			}
 		}
-		$query .= "`profiles`.`id` != 0";
-		$result = mysqli_query($mysqli_link, $query) or die(mysql_error($mysqli_link));
+		$query .= " 1 = 1";
+		$result = mysqli_query($mysqli_link, $query) or die(mysqli_error($mysqli_link));
 		echo ($result) ? '1' : '0';
 	}
 

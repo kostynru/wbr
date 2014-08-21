@@ -277,72 +277,74 @@ $(function () {
      maxFilesize: 4,
      maxFiles: 1
      });*/
-    var fileDrop = $("#post_msg_form"),
-        maxFileSize = 5000000;
-    fileDrop[0].ondragover = function (e) {
-        if (file_uploaded != false) {
-            return false;
-        }
-        $("#img_input_msg").show();
-        return false;
-    };
-    fileDrop[0].ondragleave = function (e) {
-        if (file_uploaded != false) {
-            return false;
-        }
-        $("#img_input_msg").hide();
-        return false;
-    };
-    fileDrop[0].ondrop = function (e) {
-        e.preventDefault();
-        if (file_uploaded != false) {
-            return false;
-        }
-        $("#img_input_msg").hide();
-        var file = e.dataTransfer.files[0];
-        if (maxFileSize < file.size) {
-            console.log('Too big');
-            return false;
-        }
-        $.get('/wbr/ftp.php');
-        var data = new FormData();
-        data.append('img_attachment', file);
-        $.ajax({
-            url: '/wbr/ftp.php',
-            type: 'POST',
-            data: data,
-            contentType: false,
-            processData: false,
-            before: function () {
-                $('#attachment').html('<img src="/wbr/res/ajax-loader.gif">');
-            },
-            success: function (result) {
-                if (result != '0') {
-                    file_uploaded = result;
-                    localStorage.setItem('j_w_img', result);
-                    $('#attachment').html('<img class="img-rounded" src="/wbr/img_upl/' + file_uploaded + '" height="70px" ' +
-                        'data-toggle="tooltip" data-placement="bottom" title="Remove image">').show();
-                    $('#attachment').click(function () {
-                        $.ajax({
-                            url: '/wbr/ftp.php',
-                            data: {
-                                act: 'remove_img',
-                                file_name: result
-                            },
-                            type: 'POST',
-                            success: function () {
-                                $('#attachment').html('').hide();
-                            }
-                        });
-                        file_uploaded = false;
-                    });
-                } else {
-                    console.log('File upload failed!');
-                }
+    if ($('#user_id').val() == localStorage.getItem('uid')) {
+        var fileDrop = $("#post_msg_form"),
+            maxFileSize = 5000000;
+        fileDrop[0].ondragover = function (e) {
+            if (file_uploaded != false) {
+                return false;
             }
-        });
+            $("#img_input_msg").show();
+            return false;
+        };
+        fileDrop[0].ondragleave = function (e) {
+            if (file_uploaded != false) {
+                return false;
+            }
+            $("#img_input_msg").hide();
+            return false;
+        };
+        fileDrop[0].ondrop = function (e) {
+            e.preventDefault();
+            if (file_uploaded != false) {
+                return false;
+            }
+            $("#img_input_msg").hide();
+            var file = e.dataTransfer.files[0];
+            if (maxFileSize < file.size) {
+                console.log('Too big');
+                return false;
+            }
+            $.get('/wbr/ftp.php');
+            var data = new FormData();
+            data.append('img_attachment', file);
+            $.ajax({
+                url: '/wbr/ftp.php',
+                type: 'POST',
+                data: data,
+                contentType: false,
+                processData: false,
+                before: function () {
+                    $('#attachment').html('<img src="/wbr/res/ajax-loader.gif">');
+                },
+                success: function (result) {
+                    if (result != '0') {
+                        file_uploaded = result;
+                        localStorage.setItem('j_w_img', result);
+                        $('#attachment').html('<img class="img-rounded" src="/wbr/img_upl/' + file_uploaded + '" height="70px" ' +
+                            'data-toggle="tooltip" data-placement="bottom" title="Remove image">').show();
+                        $('#attachment').click(function () {
+                            $.ajax({
+                                url: '/wbr/ftp.php',
+                                data: {
+                                    act: 'remove_img',
+                                    file_name: result
+                                },
+                                type: 'POST',
+                                success: function () {
+                                    $('#attachment').html('').hide();
+                                }
+                            });
+                            file_uploaded = false;
+                        });
+                    } else {
+                        console.log('File upload failed!');
+                    }
+                }
+            });
 
-    };
+        };
+    }
     if (localStorage.getItem('j_w_img') != null) {
         $.ajax({
             url: '/wbr/ftp.php',
@@ -355,6 +357,7 @@ $(function () {
         localStorage.removeItem('j_w_img');
     }
 });
+
 window.onbeforeunload = function () {
     if (file_uploaded != false) {
         $.ajax({

@@ -3,18 +3,17 @@ Navicat MySQL Data Transfer
 
 Source Server         : localhost
 Source Server Version : 50614
-Source Host           : localhost:5123
+Source Host           : localhost:3306
 Source Database       : wbr
 
 Target Server Type    : MYSQL
 Target Server Version : 50614
 File Encoding         : 65001
 
-Date: 2014-08-17 13:54:55
+Date: 2014-08-21 21:56:30
 */
 
 SET FOREIGN_KEY_CHECKS=0;
-
 -- ----------------------------
 -- Table structure for `friends`
 -- ----------------------------
@@ -76,7 +75,7 @@ CREATE TABLE `online` (
 -- Records of online
 -- ----------------------------
 INSERT INTO `online` VALUES ('0', '1407262838');
-INSERT INTO `online` VALUES ('1', '1408258391');
+INSERT INTO `online` VALUES ('1', '1408632616');
 INSERT INTO `online` VALUES ('2', '1407330696');
 INSERT INTO `online` VALUES ('3', '1407330696');
 INSERT INTO `online` VALUES ('19', '1407396427');
@@ -138,7 +137,7 @@ CREATE TABLE `sessions` (
 -- ----------------------------
 -- Records of sessions
 -- ----------------------------
-INSERT INTO `sessions` VALUES ('32402978426d25c7f870d456b8e4cb66', '1', '1410849886');
+INSERT INTO `sessions` VALUES ('32402978426d25c7f870d456b8e4cb66', '1', '1411217525');
 
 -- ----------------------------
 -- Table structure for `settings`
@@ -149,13 +148,15 @@ CREATE TABLE `settings` (
   `gravatar_id` varchar(32) COLLATE utf8_unicode_ci DEFAULT NULL,
   `wall_everybody` int(1) DEFAULT '1',
   `messages_everybody` int(1) DEFAULT '1',
+  `wall_enabled` int(1) DEFAULT '1',
   PRIMARY KEY (`uid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- ----------------------------
 -- Records of settings
 -- ----------------------------
-INSERT INTO `settings` VALUES ('1', '9a79c90db4729b6a63ffcbd93b16374d', '1', '1');
+INSERT INTO `settings` VALUES ('1', '9a79c90db4729b6a63ffcbd93b16374d', '0', '1', '0');
+INSERT INTO `settings` VALUES ('2', '9a79c90db4729b6a63ffcbd93b16374d', '0', '1', '1');
 
 -- ----------------------------
 -- Table structure for `userdata`
@@ -175,7 +176,7 @@ CREATE TABLE `userdata` (
 -- Records of userdata
 -- ----------------------------
 INSERT INTO `userdata` VALUES ('0', '857163600', null, '0', null, null);
-INSERT INTO `userdata` VALUES ('1', '854582400', 'Omsk', '1', 'kostynru', 'supremepowerme');
+INSERT INTO `userdata` VALUES ('1', '854571600', 'Omsk', '1', 'kostynru', 'supremepowerme');
 INSERT INTO `userdata` VALUES ('2', '854582400', 'San Farancisco', '0', null, null);
 INSERT INTO `userdata` VALUES ('3', '854582400', 'San Paulo', '1', null, null);
 INSERT INTO `userdata` VALUES ('7', '854571600', null, '0', null, null);
@@ -199,7 +200,7 @@ CREATE TABLE `wall` (
 -- ----------------------------
 -- Records of wall
 -- ----------------------------
-INSERT INTO `wall` VALUES ('4', '1', 'SG0sIG5pY2Ugd29yaw==', '1404197344', null, '0');
+INSERT INTO `wall` VALUES ('4', '1', 'SG0sIG5pY2Ugd29yaw==', '1404197344', '', '0');
 INSERT INTO `wall` VALUES ('9', '3', 'SG0sIG5pY2Ugd29yaw==', '1404197344', null, '1');
 INSERT INTO `wall` VALUES ('10', '1', 'TmljZSB3b3JrLCBtYXRlcw==', '1404314396', null, '0');
 INSERT INTO `wall` VALUES ('11', '1', 'V2VsY29tZSE=', '1405237415', null, '0');
@@ -218,7 +219,7 @@ INSERT INTO `wall` VALUES ('24', '1', 'MTIz', '1407246230', null, '0');
 INSERT INTO `wall` VALUES ('25', '1', 'aGVsbG8=', '1408025616', '', '0');
 INSERT INTO `wall` VALUES ('26', '1', 'aGVsbG8=', '1408025860', '46520fd270b082d1bfda25db82b087a3.jpg', '0');
 INSERT INTO `wall` VALUES ('28', '1', 'WW8=', '1408030144', '', '1');
-INSERT INTO `wall` VALUES ('29', '1', 'TmlnZ2E=', '1408030151', '', '1');
+INSERT INTO `wall` VALUES ('29', '2', 'TmlnZ2E=', '1408030151', '', '1');
 
 -- ----------------------------
 -- Table structure for `wall_attch`

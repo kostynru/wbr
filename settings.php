@@ -88,6 +88,11 @@ $gravatar_id = md5($settings['email']);
                 <input type="text" id="second_name" class="form-control setting"
                        value="<?php echo $settings['second_name']; ?>">
             </div>
+            <div class="form-group" id="city_group">
+                <label for="city">City</label>
+                <input type="text" id="city" class="form-control setting"
+                       value="<?php echo $settings['city']; ?>">
+            </div>
             <div class="form-group" id="skype_group">
                 <label for="skype">Skype</label>
                 <input type="text" id="skype" class="form-control setting" value="<?php echo $settings['skype']; ?>">
@@ -119,12 +124,16 @@ $gravatar_id = md5($settings['email']);
         <form class="tab-pane" id="st_wall">
             <div class="checkbox">
                 <label>
-                    <input type="checkbox" class="setting" id="wall_everybody" <?php echo ($settings['wall_everybody'] == '1')? 'checked' : '' ?>> Everybody can see my wall (if not - only friends)
+                    <input type="checkbox" class="setting" id="wall_enabled" <?php echo ($settings['wall_enabled'] == '1')? 'checked' : '' ?>> Enable wall
+                </label>
+            </div>
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" class="setting" id="wall_everybody" <?php echo ($settings['wall_everybody'] == '1')? 'checked' : '' ?>> Everybody can see my wall (otherwise - only friends)
                 </label>
             </div>
             <hr>
             <button class="btn btn-info" type="submit" id="wall_st_save">Save</button>
-
         </form>
 
         <!-- Privacy settings -->

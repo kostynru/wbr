@@ -7,11 +7,17 @@ $(function () {
     $('#st_personal').trackChanges();
     $('#st_privacy').trackChanges();
     $('#st_wall').trackChanges();
-
     $('#st_personal').submit(function () {
         if ($('#st_personal').isChanged()) {
             var changes = {};
             var submit = {};
+            $("input[type=checkbox]").each(function(current){
+                if($(this).is(':checked')){
+                    $(this).val('checked');
+                } else {
+                    $(this).val('unchecked');
+                }
+            });
             $('#st_personal .setting').each(function (current) {
                 changes[$(this).attr('id')] = $(this).val();
             });
@@ -45,6 +51,13 @@ $(function () {
         if ($('#st_wall').isChanged()) {
             var changes = {};
             var submit = {};
+            $("input[type=checkbox]").each(function(current){
+                if($(this).is(':checked')){
+                    $(this).val('checked');
+                } else {
+                    $(this).val('unchecked');
+                }
+            });
             $('#st_wall .setting').each(function (current) {
                 changes[$(this).attr('id')] = $(this).val();
             });
@@ -77,6 +90,13 @@ $(function () {
         if ($('#st_privacy').isChanged()) {
             var changes = {};
             var submit = {};
+            $("input[type=checkbox]").each(function(current){
+                if($(this).is(':checked')){
+                    $(this).val('checked');
+                } else {
+                    $(this).val('unchecked');
+                }
+            });
             $('#st_privacy .setting').each(function (current) {
                 changes[$(this).attr('id')] = $(this).val();
             });
@@ -109,6 +129,13 @@ $(function () {
         if ($('#st_additional').isChanged()) {
             var changes = {};
             var submit = {};
+            $("input[type=checkbox]").each(function(current){
+                if($(this).is(':checked')){
+                    $(this).val('checked');
+                } else {
+                    $(this).val('unchecked');
+                }
+            });
             $('#st_additional .setting').each(function (current) {
                 changes[$(this).attr('id')] = $(this).val();
             });
