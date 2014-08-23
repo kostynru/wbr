@@ -3932,7 +3932,7 @@ textarea.input-group-sm > .form-control, textarea.input-group-sm > .input-group-
     position: relative;
     min-height: 50px;
     margin-bottom: 20px;
-    border: 1px solid transparent
+    /*border: 1px solid transparent*/
 }
 
 @media (min-width: 768px) {
@@ -3970,7 +3970,7 @@ textarea.input-group-sm > .form-control, textarea.input-group-sm > .input-group-
 
     .navbar-collapse.collapse {
         display: block !important;
-        height: auto !important;
+        height: 100% !important;
         padding-bottom: 0;
         overflow: visible !important
     }

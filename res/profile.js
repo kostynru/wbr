@@ -277,7 +277,7 @@ $(function () {
      maxFilesize: 4,
      maxFiles: 1
      });*/
-    if ($('#user_id').val() == localStorage.getItem('uid')) {
+    if ($('#post_msg_form').length) {
         var fileDrop = $("#post_msg_form"),
             maxFileSize = 5000000;
         fileDrop[0].ondragover = function (e) {

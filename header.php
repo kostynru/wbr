@@ -233,7 +233,7 @@ if ($page <> 'index' and $page <> 'register' and $page <> 'credits') {
 	}
                             ?>
 		                    </a></li>
-                    <li><a href="/wbr/friends.php">Friends</a></li>
+                    <li><a href="/wbr/friends.php" id="nav_friends">Friends</a></li>
                 </ul>
                 <p class="nav navbar-nav navbar-right">
                     <?php

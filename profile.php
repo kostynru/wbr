@@ -7,7 +7,7 @@ $page = 'profile';
 		header('Location: /wbr/engine.php?act=logout&error=3');
 	}
 //**************************************************
-	ob_start();
+
 include_once 'header.php';
 ?>
 <div id="profile">
@@ -40,7 +40,14 @@ if (isset($_GET['show']) and !empty($_GET['show']) and($_GET['show'] <> $_SESSIO
                 }
 
 	    ?>
+
 	    <br><?php
+		    $wall_pref_q = "SELECT * FROM `settings` WHERE `uid` = {$profile['id']}";
+		    $wall_pref_r = mysqli_query($mysqli_link, $wall_pref_q);
+		    $wall_preferences = [];
+		    while($row = mysqli_fetch_assoc($wall_pref_r)){
+			    $wall_preferences = $row;
+		    }
         if (empty($fr_status)) {
             echo '<br><button type="button" class="btn btn-primary " id="send_query" onclick="add_to_friends(' . $_SESSION['id'] . ', ' . $profile['id'] . ')">Add to friends</button>';
         }
@@ -49,8 +56,8 @@ if (isset($_GET['show']) and !empty($_GET['show']) and($_GET['show'] <> $_SESSIO
         } elseif($fr_status['approved'] == '1') {
             $friend = true;
         }
-        if($friend){
-            echo '<br><a href="/wbr/im.php?show='.$fr_status['fid'].'" class="btn btn-primary">Send message</a>';
+        if($friend or ($wall_preferences['messages_everybody'] == '1')){
+            echo '<br><a href="/wbr/dialog/'.$profile['id'].'" class="btn btn-primary">Send message</a>';
         }
         ?>
     </div>
@@ -58,12 +65,6 @@ if (isset($_GET['show']) and !empty($_GET['show']) and($_GET['show'] <> $_SESSIO
         <input type="hidden" id="user_id" value="<?php echo $profile['id'] ?>" />
         <div id="wall_content">
             <?php
-            $wall_pref_q = "SELECT * FROM `settings` WHERE `uid` = {$profile['id']}";
-            $wall_pref_r = mysqli_query($mysqli_link, $wall_pref_q);
-            $wall_preferences = [];
-            while($row = mysqli_fetch_assoc($wall_pref_r)){
-                $wall_preferences = $row;
-            }
             if($wall_preferences['wall_everybody'] == '1'){
                 $show_wall = true;
             } else {
@@ -279,7 +280,6 @@ WALL_POST;
 
 <?php
 }
-	ob_flush();
 ?>
 </div>
 <div class="image_taint" style="display: none"></div>

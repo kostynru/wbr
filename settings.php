@@ -140,7 +140,7 @@ $gravatar_id = md5($settings['email']);
         <form class="tab-pane" id="st_privacy">
             <div class="checkbox">
                 <label>
-                    <input type="checkbox" class="setting" id="messages_everybody" <?php echo ($settings['messages_everybody'] == '1')? 'checked' : '' ?>> Only friends can send me messages
+                    <input type="checkbox" class="setting" id="messages_everybody" <?php echo ($settings['messages_everybody'] == '1')? 'checked' : '' ?>> Only friends can send messages to me
                 </label>
             </div>
             <hr>
