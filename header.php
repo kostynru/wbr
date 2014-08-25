@@ -95,9 +95,8 @@ if($page == 'profile'){
             ?>
             <link href="/wbr/res/im.css" rel="stylesheet">
             <script src="/wbr/res/im.js"></script>
-            <script src="/wbr/res/jquery.ddslick.min.js"></script>
         <?php } ?>
-
+	<script src="/wbr/res/jquery.ddslick.min.js"></script>
 
         <?php
         if ($page == 'register')
